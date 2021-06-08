@@ -39,7 +39,7 @@ def main():
         elif "speed:" in user_input:
             dc = float(user_input.split("speed:")[-1])
             print(f"Setting speed to {dc}\n")
-            motor.set_speed = dc
+            motor.speed = dc
 
 
 if __name__ == "__main__":

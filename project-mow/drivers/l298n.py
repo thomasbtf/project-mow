@@ -67,7 +67,6 @@ class L298N_1_Motor:
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
-        print(f">>>>> setter called {dc}")
         self.__p.ChangeDutyCycle(dc)
         self._speed = dc
 
@@ -79,9 +78,11 @@ class L298N_1_Motor:
 
     def backward(self):
         if self.__turning != "backward":
+            print("in if")
             GPIO.output(self.__in1, GPIO.LOW)
             GPIO.output(self.__in2, GPIO.HIGH)
             self.__turning = "backward"
+        print("end f")
 
     def stop(self):
         if self.__turning != "stop":
