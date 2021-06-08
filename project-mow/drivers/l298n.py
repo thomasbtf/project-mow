@@ -26,9 +26,11 @@ class L298N_1_Motor:
             ValueError: Numbering mode not recognised.
     """
 
-    def __init__(
-        self, en: int, in1: int, in2: int, mode="BCM", frequency=1000
-    ) -> None:
+    def __init__(self, en: int, in1: int, in2: int, mode="BCM", frequency=1000) -> None:
+
+        self._speed = 0.0
+        self._in1 = in1
+        self._in2 = in2
 
         if GPIO.getmode() is None:
             if mode == "BOARD":
@@ -45,35 +47,39 @@ class L298N_1_Motor:
         else:
             print(f"Using {GPIO.getmode()}")
 
-        self.in1 = in1
-        self.in2 = in2
         channel_list = [in1, in2]
-        GPIO.setup(channel_list, GPIO.OUT, initial=GPIO.LOW)
 
+        GPIO.setup(channel_list, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(en, GPIO.OUT)
+
         self.p = GPIO.PWM(en, frequency)
         self.p.start(0)
 
-    def change_speed(self, dc: float):
+    @property
+    def speed(self):
+        return self._speed
+
+    @speed.setter
+    def set_speed(self, dc: float):
         """Changes the duty cycle of the PWM and thus adjusts the speed of the motor.
 
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
         self.p.ChangeDutyCycle(dc)
+        self._age = dc
 
     def forward(self):
-        GPIO.output(self.in1, GPIO.HIGH)
-        GPIO.output(self.in2, GPIO.LOW)
+        GPIO.output(self._in1, GPIO.HIGH)
+        GPIO.output(self._in2, GPIO.LOW)
 
     def backward(self):
-        GPIO.output(self.in1, GPIO.LOW)
-        GPIO.output(self.in2, GPIO.HIGH)
+        GPIO.output(self._in1, GPIO.LOW)
+        GPIO.output(self._in2, GPIO.HIGH)
 
     def stop(self):
-        GPIO.output(self.in1, GPIO.LOW)
-        GPIO.output(self.in2, GPIO.LOW)
-        self.change_speed(0)
+        GPIO.output(self._in1, GPIO.LOW)
+        GPIO.output(self._in2, GPIO.LOW)
 
     def clean_up(self):
         self.stop()

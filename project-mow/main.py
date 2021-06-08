@@ -12,33 +12,34 @@ def main():
     in4 = 19
 
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
-    motor.change_speed(50)
+    motor.set_speed(50)
     motor.forward()
+    print("Running motor at 50%")
 
     while True:
-        user_input=input()
+        user_input = input()
 
         if user_input == "f":
-            print("Turning forward...")
+            print("Turning forward...\n")
             motor.forward()
 
-        elif user_input =="b":
-            print("Turning backward...")
+        elif user_input == "b":
+            print("Turning backward...\n")
             motor.backward()
 
-        elif user_input =="s": 
-            print("Stopping...")
+        elif user_input == "s":
+            print("Stopping...\n")
             motor.stop()
 
-        elif user_input =="e": 
-            print("Exiting...")
+        elif user_input == "e":
+            print("Exiting...\n")
             motor.clean_up()
             break
 
         elif "speed:" in user_input:
             dc = float(user_input.split("speed:")[-1])
-            print(f"Setting speed to {dc}")
-            motor.change_speed(dc)
+            print(f"Setting speed to {dc}\n")
+            motor.set_speed(dc)
 
 
 if __name__ == "__main__":
