@@ -19,12 +19,15 @@ def main():
         user_input=input()
 
         if user_input == "f":
+            print("Turning forward...")
             motor.forward()
 
         elif user_input =="b":
+            print("Turning backward...")
             motor.backward()
 
         elif user_input =="s": 
+            print("Stopping...")
             motor.clean_up()
             break
 
