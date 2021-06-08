@@ -31,6 +31,11 @@ def main():
             motor.clean_up()
             break
 
+        elif "speed:" in user_input:
+            dc = float(user_input.split("user_input:")[-1])
+            print(f"Setting Speed to {dc}")
+            motor.change_speed(dc)
+
 
 if __name__ == "__main__":
     main()
