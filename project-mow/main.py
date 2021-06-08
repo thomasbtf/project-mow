@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-from drivers.l298n import L298N_1_Motor
+from actuators.l298n import L298N_1_Motor
 
 
 def main():
