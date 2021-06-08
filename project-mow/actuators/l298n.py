@@ -58,6 +58,7 @@ class L298N_1_Motor:
 
     @property
     def speed(self):
+        print(">>>geeting speed")
         return self.__speed
 
     @speed.setter
