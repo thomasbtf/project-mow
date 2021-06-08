@@ -68,12 +68,14 @@ class L298N_1_Motor:
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
+        print(">>>setting speed")
         if dc > 100.0:
             dc = 100.0
         elif dc < 0.0:
             dc = 0.0
+        print(dc)
         self.__p.ChangeDutyCycle(dc)
-        self._speed = dc
+        self.__speed = dc
 
     def forward(self):
         if self.__turning != "forward":
