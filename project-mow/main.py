@@ -32,8 +32,8 @@ def main():
             break
 
         elif "speed:" in user_input:
-            dc = float(user_input.split("user_input:")[-1])
-            print(f"Setting Speed to {dc}")
+            dc = float(user_input.split("speed:")[-1])
+            print(f"Setting speed to {dc}")
             motor.change_speed(dc)
 
 
