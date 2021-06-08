@@ -16,15 +16,15 @@ def main():
     motor.forward()
 
     while True:
-        input=input()
+        user_input=input()
 
-        if input == "f":
+        if user_input == "f":
             motor.forward()
 
-        elif input =="b":
+        elif user_input =="b":
             motor.backward()
 
-        elif input =="s": 
+        elif user_input =="s": 
             motor.clean_up()
             break
 
