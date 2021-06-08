@@ -12,7 +12,7 @@ def main():
     in4 = 19
 
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
-    motor.change_speed(10)
+    motor.change_speed(50)
     motor.forward()
 
     while True:
@@ -28,8 +28,7 @@ def main():
 
         elif user_input =="s": 
             print("Stopping...")
-            motor.clean_up()
-            break
+            motor.stop()
 
         elif user_input =="e": 
             print("Exiting...")
@@ -37,9 +36,6 @@ def main():
             break
 
         elif "speed:" in user_input:
-            print(user_input)
-            print(user_input.split("speed:")[-1])
-            print(eval(user_input.split("speed:")[-1]))
             dc = float(user_input.split("speed:")[-1])
             print(f"Setting speed to {dc}")
             motor.change_speed(dc)
