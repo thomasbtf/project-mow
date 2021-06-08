@@ -78,11 +78,9 @@ class L298N_1_Motor:
 
     def backward(self):
         if self.__turning != "backward":
-            print("in if")
             GPIO.output(self.__in1, GPIO.LOW)
             GPIO.output(self.__in2, GPIO.HIGH)
             self.__turning = "backward"
-        print("end f")
 
     def stop(self):
         if self.__turning != "stop":
