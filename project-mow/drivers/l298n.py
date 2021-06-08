@@ -67,6 +67,10 @@ class L298N_1_Motor:
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
+        if dc > 100.0:
+            dc = 100.0
+        elif dc < 0.0:
+            dc = 0.0
         self.__p.ChangeDutyCycle(dc)
         self._speed = dc
 
