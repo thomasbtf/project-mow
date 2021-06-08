@@ -15,6 +15,19 @@ def main():
     motor.change_speed(10)
     motor.forward()
 
+    while True:
+        input=input()
+
+        if input == "f":
+            motor.forward()
+
+        elif input =="b":
+            motor.backward()
+
+        elif input =="s": 
+            motor.clean_up()
+            break
+
 
 if __name__ == "__main__":
     main()
