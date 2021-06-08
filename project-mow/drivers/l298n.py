@@ -31,6 +31,7 @@ class L298N_1_Motor:
         self.__speed = 0.0
         self.__in1 = in1
         self.__in2 = in2
+        self.__turning = "stop"
 
         if GPIO.getmode() is None:
             if mode == "BOARD":
@@ -66,20 +67,27 @@ class L298N_1_Motor:
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
+        print(f">>>>> setter called {dc}")
         self.__p.ChangeDutyCycle(dc)
         self._speed = dc
 
     def forward(self):
-        GPIO.output(self.__in1, GPIO.HIGH)
-        GPIO.output(self.__in2, GPIO.LOW)
+        if self.__turning != "forward":
+            GPIO.output(self.__in1, GPIO.HIGH)
+            GPIO.output(self.__in2, GPIO.LOW)
+            self.__turning = "forward"
 
     def backward(self):
-        GPIO.output(self.__in1, GPIO.LOW)
-        GPIO.output(self.__in2, GPIO.HIGH)
+        if self.__turning != "backward":
+            GPIO.output(self.__in1, GPIO.LOW)
+            GPIO.output(self.__in2, GPIO.HIGH)
+            self.__turning = "backward"
 
     def stop(self):
-        GPIO.output(self.__in1, GPIO.LOW)
-        GPIO.output(self.__in2, GPIO.LOW)
+        if self.__turning != "stop":
+            GPIO.output(self.__in1, GPIO.LOW)
+            GPIO.output(self.__in2, GPIO.LOW)
+            self.__turning = "stop"
 
     def clean_up(self):
         self.stop()
