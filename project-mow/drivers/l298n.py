@@ -50,6 +50,7 @@ class L298N_1_Motor:
         channel_list = [in1, in2]
         GPIO.setup(channel_list, GPIO.OUT, initial=GPIO.LOW)
 
+        GPIO.setup(en, GPIO.OUT)
         self.p = GPIO.PWM(en, frequency)
         self.p.start(0)
 
