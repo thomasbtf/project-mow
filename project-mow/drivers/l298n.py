@@ -32,8 +32,10 @@ class L298N_1_Motor:
 
         if GPIO.getmode() is None:
             if mode == "BOARD":
+                print("No numbering mode detected. Using BOARD numbering.")
                 GPIO.setmode(GPIO.BOARD)
             elif mode == "BCM":
+                print("No numbering mode detected. Using BCM numbering.")
                 GPIO.setmode(GPIO.BCM)
             else:
                 raise ValueError(

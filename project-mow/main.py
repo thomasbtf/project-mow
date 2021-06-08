@@ -10,7 +10,7 @@ def main():
     enb = 13
     in3 = 26
     in4 = 19
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
 
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
     motor.change_speed(10)
