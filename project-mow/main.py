@@ -12,7 +12,7 @@ def main():
     in4 = 19
 
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
-    motor.set_speed(50.0)
+    motor.speed = 50.0
     motor.forward()
     print("Running motor at 50%")
 
@@ -39,7 +39,7 @@ def main():
         elif "speed:" in user_input:
             dc = float(user_input.split("speed:")[-1])
             print(f"Setting speed to {dc}\n")
-            motor.set_speed(dc)
+            motor.set_speed = dc
 
 
 if __name__ == "__main__":

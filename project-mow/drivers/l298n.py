@@ -67,7 +67,7 @@ class L298N_1_Motor:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
         self.p.ChangeDutyCycle(dc)
-        self._age = dc
+        self._speed = dc
 
     def forward(self):
         GPIO.output(self._in1, GPIO.HIGH)
