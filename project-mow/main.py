@@ -31,6 +31,11 @@ def main():
             motor.clean_up()
             break
 
+        elif user_input =="e": 
+            print("Exiting...")
+            motor.clean_up()
+            break
+
         elif "speed:" in user_input:
             print(user_input)
             print(user_input.split("speed:")[-1])
