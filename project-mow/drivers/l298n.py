@@ -27,7 +27,7 @@ class L298N_1_Motor:
     """
 
     def __init__(
-        self, en: int, in1: int, in2: int, mode="BOARD", frequency=1000
+        self, en: int, in1: int, in2: int, mode="BCM", frequency=1000
     ) -> None:
 
         if GPIO.getmode() is None:
