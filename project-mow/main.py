@@ -14,6 +14,7 @@ def main():
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
     motor.speed = 50.0
     motor.forward()
+    print(motor.speed)
     print(f"Running motor at {motor.speed:0.0f}%\n")
 
     while True:
