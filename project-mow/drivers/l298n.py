@@ -40,6 +40,8 @@ class L298N_1_Motor:
                     "Pin numbering mode not recognised. "
                     + "Must be either BOARD or BCM."
                 )
+        else:
+            print(f"Using {GPIO.getmode()}")
 
         self.in1 = in1
         self.in2 = in1
