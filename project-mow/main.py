@@ -14,7 +14,7 @@ def main():
     motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
     motor.speed = 50.0
     motor.forward()
-    print("Running motor at {motor.speed}%\n")
+    print("Running motor at {.0f}%\n".format(motor.speed))
 
     while True:
         user_input = input()
