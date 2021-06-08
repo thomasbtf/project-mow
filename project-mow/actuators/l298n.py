@@ -26,56 +26,72 @@ class L298N_1_Motor:
             ValueError: Numbering mode not recognised.
     """
 
-    def __init__(
-        self, en: int, in1: int, in2: int, mode="BCM", frequency=1000
-    ) -> None:
+    def __init__(self, en: int, in1: int, in2: int, mode="BCM", frequency=1000) -> None:
+
+        self.__speed = 0.0
+        self.__in1 = in1
+        self.__in2 = in2
+        self.__turning = "stop"
 
         if GPIO.getmode() is None:
             if mode == "BOARD":
-                print("No numbering mode detected. Using BOARD numbering.")
                 GPIO.setmode(GPIO.BOARD)
             elif mode == "BCM":
-                print("No numbering mode detected. Using BCM numbering.")
                 GPIO.setmode(GPIO.BCM)
             else:
                 raise ValueError(
                     "Pin numbering mode not recognised. "
                     + "Must be either BOARD or BCM."
                 )
+            print(f"No numbering mode detected. Using {mode} numbering.")
         else:
             print(f"Using {GPIO.getmode()}")
 
-        self.in1 = in1
-        self.in2 = in1
         channel_list = [in1, in2]
+
         GPIO.setup(channel_list, GPIO.OUT, initial=GPIO.LOW)
-
         GPIO.setup(en, GPIO.OUT)
-        self.p = GPIO.PWM(en, frequency)
-        self.p.start(0)
 
-    def change_speed(self, dc: float):
+        self.__p = GPIO.PWM(en, frequency)
+        self.__p.start(0)
+
+    @property
+    def speed(self):
+        return self.__speed
+
+    @speed.setter
+    def speed(self, dc: float):
         """Changes the duty cycle of the PWM and thus adjusts the speed of the motor.
 
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
-        self.p.ChangeDutyCycle(dc)
+        if dc > 100.0:
+            dc = 100.0
+        elif dc < 0.0:
+            dc = 0.0
+        self.__p.ChangeDutyCycle(dc)
+        self.__speed = dc
 
     def forward(self):
-        GPIO.output(self.in1, GPIO.HIGH)
-        GPIO.output(self.in2, GPIO.LOW)
+        if self.__turning != "forward":
+            GPIO.output(self.__in1, GPIO.HIGH)
+            GPIO.output(self.__in2, GPIO.LOW)
+            self.__turning = "forward"
 
     def backward(self):
-        GPIO.output(self.in1, GPIO.LOW)
-        GPIO.output(self.in2, GPIO.HIGH)
+        if self.__turning != "backward":
+            GPIO.output(self.__in1, GPIO.LOW)
+            GPIO.output(self.__in2, GPIO.HIGH)
+            self.__turning = "backward"
 
     def stop(self):
-        GPIO.output(self.in1, GPIO.LOW)
-        GPIO.output(self.in2, GPIO.LOW)
-        self.change_speed(0)
+        if self.__turning != "stop":
+            GPIO.output(self.__in1, GPIO.LOW)
+            GPIO.output(self.__in2, GPIO.LOW)
+            self.__turning = "stop"
 
     def clean_up(self):
         self.stop()
-        self.p.stop()
+        self.__p.stop()
         GPIO.cleanup()
