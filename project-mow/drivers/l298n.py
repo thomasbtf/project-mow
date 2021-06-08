@@ -46,7 +46,7 @@ class L298N_1_Motor:
             print(f"Using {GPIO.getmode()}")
 
         self.in1 = in1
-        self.in2 = in1
+        self.in2 = in2
         channel_list = [in1, in2]
         GPIO.setup(channel_list, GPIO.OUT, initial=GPIO.LOW)
 
