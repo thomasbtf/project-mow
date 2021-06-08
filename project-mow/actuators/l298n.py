@@ -35,16 +35,15 @@ class L298N_1_Motor:
 
         if GPIO.getmode() is None:
             if mode == "BOARD":
-                print("No numbering mode detected. Using BOARD numbering.")
                 GPIO.setmode(GPIO.BOARD)
             elif mode == "BCM":
-                print("No numbering mode detected. Using BCM numbering.")
                 GPIO.setmode(GPIO.BCM)
             else:
                 raise ValueError(
                     "Pin numbering mode not recognised. "
                     + "Must be either BOARD or BCM."
                 )
+            print(f"No numbering mode detected. Using {mode} numbering.")
         else:
             print(f"Using {GPIO.getmode()}")
 
@@ -58,7 +57,6 @@ class L298N_1_Motor:
 
     @property
     def speed(self):
-        print(">>>geeting speed")
         return self.__speed
 
     @speed.setter
@@ -68,12 +66,10 @@ class L298N_1_Motor:
         Args:
             dc (float): Duty cycle. Must be 0.0 <= dc <= 100.0
         """
-        print(">>>setting speed")
         if dc > 100.0:
             dc = 100.0
         elif dc < 0.0:
             dc = 0.0
-        print(dc)
         self.__p.ChangeDutyCycle(dc)
         self.__speed = dc
 
