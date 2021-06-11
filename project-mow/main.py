@@ -1,47 +1,50 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
+from threading import Thread
 
-
-from actuators.l298n import L298N_1_Motor
-
+# from actuators.motors import L298N_1_Motor
+from frontend.webserver import start_webserver
 
 def main():
-    ena = 21
-    in1 = 20
-    in2 = 16
-    enb = 13
-    in3 = 26
-    in4 = 19
+    webserver = Thread(target=start_webserver)
+    webserver.start()
 
-    motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
-    motor.speed = 50.0
-    motor.forward()
+    # ena = 21
+    # in1 = 20
+    # in2 = 16
+    # enb = 13
+    # in3 = 26
+    # in4 = 19
 
-    print(f"Running motor at {motor.speed:0.0f}%\n")
+    # motor = L298N_1_Motor(en=ena, in1=in1, in2=in2)
+    # motor.speed = 50.0
+    # motor.forward()
 
-    while True:
-        user_input = input()
+    # print(f"Running motor at {motor.speed:0.0f}%\n")
 
-        if user_input == "f":
-            print("Turning forward...\n")
-            motor.forward()
+    # while True:
+    #     user_input = input()
 
-        elif user_input == "b":
-            print("Turning backward...\n")
-            motor.backward()
+    #     if user_input == "f":
+    #         print("Turning forward...\n")
+    #         motor.forward()
 
-        elif user_input == "s":
-            print("Stopping...\n")
-            motor.stop()
+    #     elif user_input == "b":
+    #         print("Turning backward...\n")
+    #         motor.backward()
 
-        elif user_input == "e":
-            print("Exiting...\n")
-            motor.clean_up()
-            break
+    #     elif user_input == "s":
+    #         print("Stopping...\n")
+    #         motor.stop()
 
-        elif "speed:" in user_input:
-            dc = float(user_input.split("speed:")[-1])
-            print(f"Setting speed to {dc}\n")
-            motor.speed = dc
+    #     elif user_input == "e":
+    #         print("Exiting...\n")
+    #         motor.clean_up()
+    #         break
+
+    #     elif "speed:" in user_input:
+    #         dc = float(user_input.split("speed:")[-1])
+    #         print(f"Setting speed to {dc}\n")
+    #         motor.speed = dc
 
 
 if __name__ == "__main__":
