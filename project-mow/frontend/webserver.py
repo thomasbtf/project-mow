@@ -16,7 +16,7 @@ def start_webserver(robot, host="0.0.0.0", port=5000, debug=False):
     @socketio.on("steering-command")
     def handle_steering_command(json):
         print("received data: " + str(json))
-        robot.move(json.x, json.y)
+        robot.move(json["x"], json["y"])
 
     socketio.run(app, host=host, port=port, debug=debug)
 
