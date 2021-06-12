@@ -3,9 +3,13 @@ from threading import Thread
 
 # from actuators.motors import L298N_1_Motor
 from frontend.webserver import start_webserver
+from robots import First_Robot
+
 
 def main():
-    webserver = Thread(target=start_webserver)
+    robot = First_Robot()
+
+    webserver = Thread(target=start_webserver, args=[robot])
     webserver.start()
 
     # ena = 21
