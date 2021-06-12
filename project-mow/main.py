@@ -1,16 +1,12 @@
 # import RPi.GPIO as GPIO
-from threading import Thread
 
-# from actuators.motors import L298N_1_Motor
 from frontend.webserver import start_webserver
 from robots import First_Robot
 
 
 def main():
     robot = First_Robot()
-
-    webserver = Thread(target=start_webserver, args=[robot])
-    webserver.start()
+    start_webserver(robot)
 
     # ena = 21
     # in1 = 20
