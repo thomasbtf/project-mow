@@ -24,4 +24,7 @@ manager.on('added', function (evt, nipple) {
   dy = dy * 200 / size
 
   socket.emit('steering-command', {x: dx, y: dy});
+
+}).on('end', function (evt, nipple) {
+  socket.emit('steering-command', {x: 0.0, y: 0.0});
 });
