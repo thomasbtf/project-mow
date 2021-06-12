@@ -32,5 +32,5 @@ class Simple_Drive:
             self.left_motor.backward()
             self.right_motor.backward()
 
-        self.left_motor.speed = abs(dy) + dx
         self.left_motor.speed = abs(dy) - dx
+        self.right_motor.speed = abs(dy) + dx
