@@ -4,7 +4,7 @@ socket.on('connect', function() {
   console.log("Websocket connected.")
 });
 
-const size = 100
+const size = 200
 
 var manager = nipplejs.create({
   zone: document.getElementById('joystick'),
