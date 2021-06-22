@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 
 
-def start_webserver(robot, host="0.0.0.0", debug=False):
+def start_webserver(robot, host="0.0.0.0", port=80, debug=False):
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "secret!"
     socketio = SocketIO(app)
@@ -18,7 +18,7 @@ def start_webserver(robot, host="0.0.0.0", debug=False):
         print("received data: " + str(json))
         robot.move(json["x"], json["y"])
 
-    socketio.run(app, host=host, debug=debug)
+    socketio.run(app, host=host, port=port, debug=debug)
 
 
 if __name__ == "__main__":
